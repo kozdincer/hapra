@@ -1,12 +1,15 @@
-#!/usr/bin/python
 from haproxy import *
-from flask import jsonify
+import json
 
 class OptionJSON():
-    def __init__(self, ):
-        pass
+    def __init__(self, oid, option):
+        odict = {
+            "id" : oid,
+            "name" : option.name,
+            "params" : option.params
+        }
+        self.json = json.dumps(odict)
 
-    def d(self):
-        odict = {'id': id, 'param_name': name, 'params': params}
-        return jsonify(odict)
+    def getJSON(self):
+        return self.json
 
