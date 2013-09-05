@@ -46,7 +46,22 @@ class FrontendJSON():
             ojs = oj.json
             ojs = json.loads(ojs)
             oa.append(ojs)
-        fdict = {'options': oa}
+        fdict = {
+                    'options': oa,
+                    'name' : frontend.name
+                }
         self.json = json.dumps(fdict)
 
-
+class BackendJSON():
+    def __init__(self, backend):
+        oa = []
+        for index, opt in enumerate(backend.options):
+            oj = OptionJSON(index, opt)
+            ojs = oj.json
+            ojs = json.loads(ojs)
+            oa.append(ojs)
+        bdict = {
+                    'options': oa,
+                    'name': backend.name
+                 }
+        self.json = json.dumps(bdict)

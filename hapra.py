@@ -17,7 +17,8 @@ def index():
     i = ""
     i += makeLink('/get/global')
     i += makeLink('/get/defaults')
-    i += makeLink('/get/frontend/<name>')
+    i += makeLink('/get/frontend/http_proxy')
+    i += makeLink('/get/backend/app')
     return i
 
 @app.route("/get/global")
@@ -40,6 +41,13 @@ def frontends(name):
     fj = FrontendJSON(f).json
     fj = json.loads(fj)
     return jsonify(status="OK", frontend=fj)
+
+@app.route("/get/backend/<name>")
+def backends(name):
+    b = hc.getBackend(name)
+    bj = BackendJSON(b).json
+    bj = json.loads(bj)
+    return jsonify(status="OK", backend=bj)
 
 if __name__ == "__main__":
     app.debug = True
