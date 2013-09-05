@@ -21,6 +21,8 @@ def index():
     i += makeLink('/get/backend/app')
     i += makeLink('/get/listen/appli1-rewrite')
     i += makeLink('/get/frontends')
+    i += makeLink('/get/backends')
+    i += makeLink('/get/listens')
     return i
 
 @app.route("/get/global")
@@ -67,6 +69,26 @@ def frontends():
         fj = json.loads(fj)
         fsa.append(fj)
     return jsonify(status='OK', frontends=fsa)
+
+@app.route("/get/backends")
+def backends():
+    bs = hc.getBackends()
+    bsa = []
+    for b in bs:
+        bj = BackendJSON(b).json
+        bj = json.loads(bj)
+        bsa.append(bj)
+    return jsonify(status='OK', backends=bsa)
+
+@app.route("/get/listens")
+def listens():
+    ls = hc.getListens()
+    lsa = []
+    for l in ls:
+        lj = ListenJSON(l).json
+        lj = json.loads(lj)
+        lsa.append(lj)
+    return jsonify(status='OK', listens=lsa)
 
 if __name__ == "__main__":
     app.debug = True
