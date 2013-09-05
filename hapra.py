@@ -4,6 +4,7 @@ from haproxy.haproxy import *
 from flask import jsonify
 
 hc = HAProxyConfig('/home/aybuke/repo/hapra/haproxy.cfg')
+
 def makeLink(url):
     return "<a href='%s'>%s</a><br>" %(url, url)
 
