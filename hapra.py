@@ -19,6 +19,7 @@ def index():
     i += makeLink('/get/defaults')
     i += makeLink('/get/frontend/http_proxy')
     i += makeLink('/get/backend/app')
+    i += makeLink('/get/listen/appli1-rewrite')
     return i
 
 @app.route("/get/global")
@@ -48,6 +49,14 @@ def backends(name):
     bj = BackendJSON(b).json
     bj = json.loads(bj)
     return jsonify(status="OK", backend=bj)
+
+@app.route("/get/listen/<name>")
+def listen(name):
+    l = hc.getListen(name)
+    lj = ListenJSON(l).json
+    lj = json.loads(lj)
+    return jsonify(status="OK", listen=lj)
+
 
 if __name__ == "__main__":
     app.debug = True

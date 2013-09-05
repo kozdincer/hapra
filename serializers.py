@@ -65,3 +65,17 @@ class BackendJSON():
                     'name': backend.name
                  }
         self.json = json.dumps(bdict)
+
+class ListenJSON():
+    def __init__(self, listen):
+        oa = []
+        for index, opt in enumerate(listen.options):
+            oj = OptionJSON(index, opt)
+            ojs = oj.json
+            ojs = json.loads(ojs)
+            oa.append(ojs)
+        ldict = {
+                    'options': oa,
+                    'name': listen.name
+                }
+        self.json = json.dumps(ldict)
