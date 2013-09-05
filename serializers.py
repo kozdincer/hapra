@@ -13,3 +13,15 @@ class OptionJSON():
     def getJSON(self):
         return self.json
 
+class GlobalJSON():
+    def __init__(self, globalh):
+        oa = []
+        for index, opt in enumerate(globalh.options):
+            oj = OptionJSON(index, opt)
+            oa.append(oj.getJSON())
+        gdict = {'options' : str(oa)}
+        self.json = json.dumps(gdict)
+        print self.json
+
+    def getJSON(self):
+        return self.json
