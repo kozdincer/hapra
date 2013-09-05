@@ -37,3 +37,16 @@ class DefaultsJSON():
             oa.append(ojs)
         ddict = {'options': oa}
         self.json = json.dumps(ddict)
+
+class FrontendJSON():
+    def __init__(self, frontend):
+        oa = []
+        for index, opt in enumerate(frontend.options):
+            oj = OptionJSON(index, opt)
+            ojs = oj.json
+            ojs = json.loads(ojs)
+            oa.append(ojs)
+        fdict = {'options': oa}
+        self.json = json.dumps(fdict)
+
+

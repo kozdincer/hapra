@@ -17,6 +17,7 @@ def index():
     i = ""
     i += makeLink('/get/global')
     i += makeLink('/get/defaults')
+    i += makeLink('/get/frontend/<name>')
     return i
 
 @app.route("/get/global")
@@ -33,34 +34,12 @@ def defaults():
     dj = json.loads(dj)
     return jsonify(status="OK", defaults=dj)
 
-@app.route("/get/fnames")
-def fnames():
-    fnames = hc.getFnames()
-    fdict = {'fnames' : fnames}
-    return jsonify(fdict)
-
-@app.route("/get/lnames")
-def lnames():
-    lnames = hc.getLnames()
-    ldict = {'lnames': lnames}
-    return jsonify(ldict)
-
-@app.route("/get/bnames")
-def bnames():
-    bnames = hc.getBnames()
-    bdict = {'bnames': bnames}
-    return jsonify(bdict)
-
 @app.route("/get/frontend/<name>")
-def getFrontend(name):
-    return name
-
-@app.route("/get/option")
-def getOption():
-    o = Option("a", ("dsa", "dsa",))
-    oj = OptionJSON(1, o)
-    return oj.getJSON()
-
+def frontends(name):
+    f = hc.getFrontend(name)
+    fj = FrontendJSON(f).json
+    fj = json.loads(fj)
+    return jsonify(status="OK", frontend=fj)
 
 if __name__ == "__main__":
     app.debug = True
