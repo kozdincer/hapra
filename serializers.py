@@ -18,10 +18,22 @@ class GlobalJSON():
         oa = []
         for index, opt in enumerate(globalh.options):
             oj = OptionJSON(index, opt)
-            oa.append(oj.getJSON())
-        gdict = {'options' : str(oa)}
+            ojs = oj.json
+            ojs = json.loads(ojs)
+            oa.append(ojs)
+        gdict = {'options' : oa}
         self.json = json.dumps(gdict)
-        print self.json
 
     def getJSON(self):
         return self.json
+
+class DefaultsJSON():
+    def __init__(self, defaults):
+        oa = []
+        for index, opt in enumerate(defaults.options):
+            oj = OptionJSON(index, opt)
+            ojs = oj.json
+            ojs = json.loads(ojs)
+            oa.append(ojs)
+        ddict = {'options': oa}
+        self.json = json.dumps(ddict)
