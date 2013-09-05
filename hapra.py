@@ -2,6 +2,7 @@
 from flask import *
 from haproxy.haproxy import *
 from flask import jsonify
+from serializers import *
 
 hc = HAProxyConfig('/home/aybuke/repo/hapra/haproxy.cfg')
 
@@ -13,10 +14,25 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     i = ""
-    i += makeLink('/get/fnames')
-    i += makeLink('/get/lnames')
-    i += makeLink('/get/bnames')
+    i += makeLink('/get/global')
     return i
+
+@app.route("/get/global")
+def globalh():
+    g = hc.globalh
+    gj = GlobalJSON(g).json
+    return jsonify(status="OK", globalh=gj)
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route("/get/fnames")
 def fnames():
@@ -36,7 +52,18 @@ def bnames():
     bdict = {'bnames': bnames}
     return jsonify(bdict)
 
+@app.route("/get/frontend/<name>")
+def getFrontend(name):
+    return name
+
+@app.route("/get/option")
+def getOption():
+    o = Option("a", ("dsa", "dsa",))
+    oj = OptionJSON(1, o)
+    return oj.getJSON()
+
+
 if __name__ == "__main__":
     app.debug = True
-    app.run(debug= True)
+    app.run()
 
