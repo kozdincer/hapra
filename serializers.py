@@ -82,4 +82,4 @@ class ListenJSON():
 
 class AllJSON():
     def __init__(self, haproxy):
-
+        return 1
