@@ -15,53 +15,53 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     i = ""
-    i += makeLink('/get')
-    i += makeLink('/get/global')
-    i += makeLink('/get/defaults')
-    i += makeLink('/get/frontend/http_proxy')
-    i += makeLink('/get/backend/app')
-    i += makeLink('/get/listen/appli1-rewrite')
-    i += makeLink('/get/frontends')
-    i += makeLink('/get/backends')
-    i += makeLink('/get/listens')
+    i += makeLink('/all')
+    i += makeLink('/global')
+    i += makeLink('/defaults')
+    i += makeLink('/frontend/http_proxy')
+    i += makeLink('/backend/app')
+    i += makeLink('/listen/appli1-rewrite')
+    i += makeLink('/frontends')
+    i += makeLink('/backends')
+    i += makeLink('/listens')
     return i
 
-@app.route('/get/global')
+@app.route('/global')
 def globalh():
     g = hc.globalh
     gj = GlobalJSON(g).json
     gj = json.loads(gj)
     return jsonify(status='OK', globalh=gj)
 
-@app.route('/get/defaults')
+@app.route('/defaults')
 def defaults():
     d = hc.defaults
     dj = DefaultsJSON(d).json
     dj = json.loads(dj)
     return jsonify(status='OK', defaults=dj)
 
-@app.route('/get/frontend/<name>')
+@app.route('/frontend/<name>')
 def frontend(name):
     f = hc.getFrontend(name)
     fj = FrontendJSON(f).json
     fj = json.loads(fj)
     return jsonify(status='OK', frontend=fj)
 
-@app.route('/get/backend/<name>')
+@app.route('/backend/<name>')
 def backend(name):
     b = hc.getBackend(name)
     bj = BackendJSON(b).json
     bj = json.loads(bj)
     return jsonify(status='OK', backend=bj)
 
-@app.route('/get/listen/<name>')
+@app.route('/listen/<name>')
 def listen(name):
     l = hc.getListen(name)
     lj = ListenJSON(l).json
     lj = json.loads(lj)
     return jsonify(status='OK', listen=lj)
 
-@app.route('/get/frontends')
+@app.route('/frontends')
 def frontends():
     fs = hc.getFrontends()
     fsa = []
@@ -71,7 +71,7 @@ def frontends():
         fsa.append(fj)
     return jsonify(status='OK', frontends=fsa)
 
-@app.route('/get/backends')
+@app.route('/backends')
 def backends():
     bs = hc.getBackends()
     bsa = []
@@ -81,7 +81,7 @@ def backends():
         bsa.append(bj)
     return jsonify(status='OK', backends=bsa)
 
-@app.route('/get/listens')
+@app.route('/listens')
 def listens():
     ls = hc.getListens()
     lsa = []
@@ -91,7 +91,7 @@ def listens():
         lsa.append(lj)
     return jsonify(status='OK', listens=lsa)
 
-@app.route('/get')
+@app.route('/all')
 def getall():
     g = hc.globalh
     gj = GlobalJSON(g).json
