@@ -79,7 +79,3 @@ class ListenJSON():
                     'name': listen.name
                 }
         self.json = json.dumps(ldict)
-
-class AllJSON():
-    def __init__(self, haproxy):
-        return 1

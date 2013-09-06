@@ -15,6 +15,7 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     i = ""
+    i += makeLink('/get')
     i += makeLink('/get/global')
     i += makeLink('/get/defaults')
     i += makeLink('/get/frontend/http_proxy')
@@ -92,7 +93,42 @@ def listens():
 
 @app.route('/get')
 def getall():
-    return 'all'
+    g = hc.globalh
+    gj = GlobalJSON(g).json
+    gj = json.loads(gj)
+
+    d = hc.defaults
+    dj = DefaultsJSON(d).json
+    dj = json.loads(dj)
+
+    fs = hc.getFrontends()
+    fsa = []
+    for f in fs:
+        fj = FrontendJSON(f).json
+        fj = json.loads(fj)
+        fsa.append(fj)
+
+    bs = hc.getBackends()
+    bsa = []
+    for b in bs:
+        bj = BackendJSON(b).json
+        bj = json.loads(bj)
+        bsa.append(bj)
+
+    ls = hc.getListens()
+    lsa = []
+    for l in ls:
+        lj = ListenJSON(l).json
+        lj = json.loads(lj)
+        lsa.append(lj)
+
+    config= [gj, dj, fsa, bsa, lsa]
+    return jsonify(status='OK', Config=config)
+
+
+
+
+
 
 if __name__ == "__main__":
     app.debug = True
