@@ -4,9 +4,9 @@ import json
 class OptionJSON():
     def __init__(self, oid, option):
         odict = {
-            "id" : oid,
-            "name" : option.name,
-            "params" : option.params
+            'id' : oid,
+            'name' : option.name,
+            'params' : option.params
         }
         self.json = json.dumps(odict)
 
@@ -79,3 +79,7 @@ class ListenJSON():
                     'name': listen.name
                 }
         self.json = json.dumps(ldict)
+
+class AllJSON():
+    def __init__(self, haproxy):
+
