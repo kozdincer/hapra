@@ -96,10 +96,12 @@ def getall():
     g = hc.globalh
     gj = GlobalJSON(g).json
     gj = json.loads(gj)
+    gson = {'global':gj}
 
     d = hc.defaults
     dj = DefaultsJSON(d).json
     dj = json.loads(dj)
+    dson = {'defaults':dj}
 
     fs = hc.getFrontends()
     fsa = []
@@ -107,6 +109,7 @@ def getall():
         fj = FrontendJSON(f).json
         fj = json.loads(fj)
         fsa.append(fj)
+    fson = {'frontens':fj}
 
     bs = hc.getBackends()
     bsa = []
@@ -114,6 +117,7 @@ def getall():
         bj = BackendJSON(b).json
         bj = json.loads(bj)
         bsa.append(bj)
+    bson = {'backends':bj}
 
     ls = hc.getListens()
     lsa = []
@@ -121,14 +125,10 @@ def getall():
         lj = ListenJSON(l).json
         lj = json.loads(lj)
         lsa.append(lj)
+        lson = {'listens':lj}
 
-    config= [gj, dj, fsa, bsa, lsa]
+    config= [gson, dson, fson, bson, lson]
     return jsonify(status='OK', Config=config)
-
-
-
-
-
 
 if __name__ == "__main__":
     app.debug = True
